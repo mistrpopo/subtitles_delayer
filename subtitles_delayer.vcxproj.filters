@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="srt_delay.cpp">
+      <Filter>srt_delay</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{8f5c389b-6c24-4f09-9d6b-2084d2d5cf92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="srt_delay">
+      <UniqueIdentifier>{43bfcb9b-d799-4dea-8e0d-55961d101b6e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="srt_delay.h">
+      <Filter>srt_delay</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
