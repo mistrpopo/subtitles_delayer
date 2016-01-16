@@ -117,86 +117,15 @@ bool move_time(long long how_much, int& hours, int& mins, int& secs, int& ms)
 	const int ms_in_one_sec = 1000;
 	const int ms_in_one_min = 60 * ms_in_one_sec;
 	const int ms_in_one_hour = 60 * ms_in_one_min;
-	if (abs(how_much) >= ms_in_one_hour)
-	{
-		hours += static_cast<int>(how_much / ms_in_one_hour);
-		how_much %= ms_in_one_hour;
-	}
-	if (abs(how_much) >= ms_in_one_min)
-	{
-		mins += static_cast<int>(how_much / ms_in_one_min);
-		while (mins < 0 && hours > 0)
-		{
-			hours--;
-			mins += 60;
-		}
-		while (mins >= 60)
-		{
-			hours++;
-			mins -= 60;
-		}
-		how_much %= ms_in_one_min;
-	}
-	if (abs(how_much) >= ms_in_one_sec)
-	{
-		secs += static_cast<int>(how_much / ms_in_one_sec);
-		while (secs < 0 && (mins > 0 || hours > 0))
-		{
-			if (mins == 0)
-			{
-				hours--;
-				mins += 60;
-			}
-			mins--;
-			secs += 60;
-		}
-		while (secs >= 60)
-		{
-			mins++;
-			if (mins == 60)
-			{
-				hours++;
-				mins = 0;
-			}
-			secs -= 60;
-		}
-		how_much %= ms_in_one_sec;
-	}
-	if (abs(how_much) >= 1)
-	{
-		ms += static_cast<int>(how_much);
-		while (ms < 0 && (secs > 0 || mins > 0 || hours > 0))
-		{
-			if (secs == 0)
-			{
-				if (mins == 0)
-				{
-					hours--;
-					mins += 60;
-				}
-				mins--;
-				secs += 60;
-			}
-			secs--;
-			ms += 1000;
-		}
-		while (ms > 1000)
-		{
-			secs++;
-			if (secs == 60)
-			{
-				mins++;
-				if (mins == 60)
-				{
-					hours++;
-					mins = 0;
-				}
-				secs = 0;
-			}
-			ms -= 1000;
-		}
-		how_much = 0;
-	}
+	long long initial_ms = hours * ms_in_one_hour + mins * ms_in_one_min + secs * ms_in_one_sec + ms;
+	long long delayed_ms = initial_ms + how_much;
+	hours = static_cast<int>(delayed_ms / ms_in_one_hour);
+	delayed_ms %= ms_in_one_hour;
+	mins = static_cast<int>(delayed_ms / ms_in_one_min);
+	delayed_ms %= ms_in_one_min;
+	secs = static_cast<int>(delayed_ms / ms_in_one_sec);
+	delayed_ms %= ms_in_one_sec;
+	ms = static_cast<int>(delayed_ms);
 	return true;
 }
 
